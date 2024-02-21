@@ -90,3 +90,46 @@ def create_second_prompt(demonstrations: List[Tuple[str, int, str, str, str]], p
     phrase = phrase.rstrip(".")
     data_point_prompt = structure_second_prompt_string(phrase, premise_phrase)
     return f"{prompt}{data_point_prompt} "
+
+
+#########################################################
+# Generation of multiple choice type of prompts
+#########################################################
+
+
+def create_mc_prompt_answer(label: int) -> str:
+    return "A" if label == 0 else "B"
+
+
+def structure_mc_prompt_string(
+    phrase: str, first_choice: str, second_choice: str, premise_phrase: str, label: Optional[str] = None
+) -> str:
+    prefix = "From A or B which choice best completes the phrase?\nPhrase: "
+    prompt = f"{prefix}{phrase}{premise_phrase}\nA: {first_choice}\nB: {second_choice}\nAnswer:"
+    if label is None:
+        return f"{prompt}"
+    return f"{prompt} {label}"
+
+
+def create_mc_prompt(
+    demonstrations: List[Tuple[str, int, str, str, str]],
+    premise: str,
+    phrase: str,
+    first_choice: str,
+    second_choice: str,
+) -> str:
+    prompt = ""
+    for demo_premise, demo_label, demo_phrase, demo_first_choice, demo_second_choice in demonstrations:
+        demo_first_choice = demo_first_choice.lower()
+        demo_second_choice = demo_second_choice.lower()
+        demo_label_str = create_mc_prompt_answer(demo_label)
+        demo_phrase = demo_phrase.rstrip(".")
+        premise_phrase = ", because" if "cause" in demo_premise else ", so"
+        demonstration_str = structure_mc_prompt_string(
+            demo_phrase, demo_first_choice, demo_second_choice, premise_phrase, demo_label_str
+        )
+        prompt = f"{prompt}{demonstration_str}\n\n"
+    premise_phrase = ", because" if "cause" in premise else ", so"
+    phrase = phrase.rstrip(".")
+    data_point_prompt = structure_mc_prompt_string(phrase, first_choice.lower(), second_choice.lower(), premise_phrase)
+    return f"{prompt}{data_point_prompt}"
