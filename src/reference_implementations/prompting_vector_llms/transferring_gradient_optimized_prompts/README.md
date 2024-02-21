@@ -1,6 +1,6 @@
 ## Transferring Gradient Optimized Prompts
 
-For an in-depth desription of this tasks see the notebook or the upper readme at `src/reference_implementations/prompting_vector_llms/README.MD`
+For an in-depth description of this tasks see the notebook or the upper readme at `src/reference_implementations/prompting_vector_llms/README.MD`
 
 ## VENV Installation
 
@@ -24,3 +24,4 @@ and finally
 ```
 pip install -r requirements.txt
 ```
+where `requirements.txt` is housed at the top level of the repository
