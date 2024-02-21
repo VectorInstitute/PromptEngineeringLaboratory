@@ -16,8 +16,8 @@ All reference implementations are housed in `src/reference_implementations/`. Da
 
 2. We have a pre-constructed environment for running experiments and using the notebooks in this repository. This environment is housed in the public path `/ssd003/projects/aieng/public/prompt_engineering`
 
-    __NOTE__ You do not have permission to modify the environment. It should contain all of the libraries necessary to run the notebooks and experiments in this repository. 
-    
+    __NOTE__ You do not have permission to modify the environment. It should contain all of the libraries necessary to run the notebooks and experiments in this repository.
+
     However, if you need to add something to this environment, you have two options.
 
     1) You may create your own virtual environment and install the dependencies using the requirements.txt file at the top level of this repository. You will be able to add any libraries you would like to this new venv.
@@ -176,7 +176,7 @@ from the top level of the repository. The environment is yours locally and you a
 
 ## A note on disk space
 
-As discussed above, you have a local path with 50GB of disk space at 
+As discussed above, you have a local path with 50GB of disk space at
 ```
 `/scratch/ssd004/scratch/<cluster_username>`
 ```

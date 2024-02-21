@@ -25,4 +25,3 @@ and finally
 pip install -r requirements.txt
 ```
 where `requirements.txt` is housed at the top level of the repository
-
