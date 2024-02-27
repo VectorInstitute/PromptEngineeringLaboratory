@@ -106,7 +106,7 @@ Below, we start the notebook on the example port `8888`: If the port `8888` is t
 Also note the URL output by the command to be used later. (ex. http://127.0.0.1:8888/?token=7ba0ba5c3e9f5668f92518e4c5e723fea8b69aca065b4d57)
 
 ```bash
-jupyter notebook --ip 0.0.0.0 --port 8888
+jupyter notebook --ip $(hostname --fqdn) --port 8888
 ```
 
 Using a new terminal window from our personal laptop, we need to create an ssh tunnel to that specific port of the gpu node:
