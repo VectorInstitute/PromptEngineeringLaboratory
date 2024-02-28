@@ -1,6 +1,8 @@
 # Fine-tuning a classifier on the Activations from an LLM
 
-We are aiming to train a small classifier on top of the activations of an intermediate layer for the OPT language model hosted on Vector's cluster. As an example we'll work on the IMDB sentiment classification task. It's a boolean task that asks the model to classify the sentiment associated with a short movie review. The dataset consists of 25,000 highly polar movie reviews for training, and another 25,000 for testing.
+We are aiming to train a small classifier on top of the activations of an intermediate layer for the LLaMA-2 language model hosted on Vector's cluster. As an example we'll work on the IMDB sentiment classification task. It's a boolean task that asks the model to classify the sentiment associated with a short movie review. The dataset consists of 25,000 highly polar movie reviews for training, and another 25,000 for testing.
+
+__Note__ We have also computed activations using the 95th DNN layer of OPT-175B as another example. While we only experiment with a single layer from OPT, prompting has a dramatic affect on a classifiers downstream accuracy on this task as well.
 
 Sample Review (Please forgive language):
 
@@ -33,17 +35,21 @@ pip install -r requirements.txt
 
 ## Pickle Files
 
-As part of the repository, we have included two sets of pkl files with precomputed activations for OPT-175 in the `resources` folder. The files with names not containing `with_prompts` are those computed without preconditioning the language model with instruction and 5-shot demonstration prompts, while the files with names that contain that string correspond to activations obtained using those components.
+As part of the repository, we have included two sets of pkl files with precomputed activations for both LLaMA-2 and OPT-175 in the `resources` folder. The files with names not containing `with_prompts` are those computed without preconditioning the language model with instruction and few-shot demonstration prompts, while the files with names that contain that string correspond to activations obtained using those components. Each file is also suffixed with the number corresponding to the layer extracted from these models.
 
-It takes quite a while to compute OPT-175 activations. So computing your own will take some patience. Alternatively, you can experiment with OPT6.7 for faster activation production.
+__NOTE__: The `compute_activations.ipynb` notebook is currently only configured to compute activations on LLaMA-2.
+
+It can take a little while to compute the activations on LLaMA-2 13B. If it is taking too long, consider using LLaMA-2 7B.
 
 ## Activation Computation
 
 The first step is to compute activations for a set of training inputs and the same level of activations for testing inputs. Because the dataset is so large and the model is quite heavy, we'll just consider a few-shot set of training inputs (100 samples) and a randomly sampled set of points from the test dataset (300 samples).
 
-These activations are stored in the resources folder and we'll train/test a classifier using the activations vectors in another notebook. Because the model is so expressive, this few-shot set of training examples should still perform very well on the test set. The notebook to compute these is `compute_activations.ipynb`.
+These activations are stored in the resources folder and we'll train/test a classifier using the activations vectors in another notebook. Because the model is so expressive, this few-shot set of training examples should still perform well on the test set. The notebook to compute these is `compute_activations.ipynb`.
 
 We also want to consider whether training with a prompt as part of the input helps the downstream model perform the task more accurately. So we'll save activations with and without a few-shot prompt as part of the input.
+
+Finally, we want to experiment with extractive activations from different layers of the model. So we compute activations at several different layers in the model.
 
 ## Classifier Training
 
