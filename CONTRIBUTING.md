@@ -1,4 +1,4 @@
-# Contributing to AI Engineering Projects
+# Contributing to the Prompt Engineering Laboratory Repository
 
 Thanks for your interest in contributing!
 

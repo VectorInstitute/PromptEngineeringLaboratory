@@ -2,7 +2,7 @@
 
 ## Fairness Through Fine-Tuning
 
-In the folder `opt_czarnoska_analysis/`, we measure the fairness of some models through the lens of sentiment analysis. Specifically, we will measure if swapping out the name of the groups (e.g., young vs old) will affect the model's prediction of the sentence's sentiment. We will use additional metrics and visualization techniques devised at the Vector Institute to highlight groups of people that the models are in favor of or biased against.
+In the folder `czarnowska_analysis/`, we measure the fairness of some models through the lens of sentiment analysis. Specifically, we will measure if swapping out the name of the groups (e.g., young vs old) will affect the model's prediction of the sentence's sentiment. We will use additional metrics and visualization techniques devised at the Vector Institute to highlight groups of people that the models are in favor of or biased against.
 
 The test cases presented in this folder are from the following paper.
 
@@ -23,13 +23,13 @@ During the lab, we've covered a wide range of ways to prompt LLMs for text class
 
 #### Step 1: Generating Sentiment labels
 
-The first step is to predict the sentiment of each test case using. The script `fairness_eval_template.py` provides the boilerplate code for loading the test cases and formatting the output.
+The first step is to predict the sentiment of each test case using. The script `roberta_fairness_eval_template.py` provides the boilerplate code for loading the test cases and formatting the output.
 
-To provide an overview of the pipeline, we use the following fine-tuned RoBERTa-base model from the HuggingFace hub ([link](https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment)) for sentiment analysis. While we aren't using prompting in this example, this RoBERTa-base model is simple and efficient enough to demonstrate how the pipeline will interact with your LLM. You can easily adjust `fairness_eval_template.py` to use any prompting approach.
+To provide an overview of the pipeline, we use the following fine-tuned RoBERTa-base model from the HuggingFace hub ([link](https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment)) for sentiment analysis. While we aren't using prompting in this example, this RoBERTa-base model is simple and efficient enough to demonstrate how the pipeline will interact with your LLM. For an example of using prompting to evaluate LLaMA-2 for this task, consider `czarnowska_analysis/prompting_czarnowska_templates.py`
 
 Before you run this script, be sure to adjust the constant values in the script as needed.
 ```python
-# (fairness_eval_template.py)
+# (roberta_fairness_eval_template.py)
 
 # Path to sentiment fairness test cases
 TEST_FILE_PATH = (
@@ -54,13 +54,13 @@ NUM_PARAMS = 0.125  # billions
 RUN_ID = "example_run_a"  # E.g., distinguishes between different random seeds.
 ```
 
-On a GPU machine, go to the root folder of this project (`PromptEngineering`). Create a virtual environment and run the fairness evaluation script:
+On a GPU machine, go to the root folder of this project (`PromptEngineeringLaboratory`). Create a virtual environment and run the fairness evaluation script:
 ```bash
 python3 -m venv env
 source env/bin/activate
 
 python3 -m pip install -U transformers tqdm
-python3 src/reference_implementations/fairness_measurement/fairness_eval_template.py
+python3 src/reference_implementations/fairness_measurement/roberta_fairness_eval_template.py
 ```
 
 By default, this script will append predictions and info about the model to `PREDICTION_FILE_PATH`. If this file doesn't exist, the script will create a new one with the TSV header row.
@@ -76,7 +76,7 @@ Note that the notebook is capable of visualizing confidence intervals. However, 
 
 ## BBQ: A Question-Answering Framework for Bias Probing
 
-In the folder `bbq_fairness_example/` there is a small notebook that works through a few demonstrative examples of the BBQ task that was recently introduced to probe the bias inherent in large language models. The notebook describes the task and contains a link to the paper.
+In the folder `bbq_fairness_example/` there is a small notebook that works through a few demonstrative examples of the [BBQ task](https://github.com/nyu-mll/BBQ) that was introduced to probe the bias inherent in large language models. The notebook describes the task and also contains a link to the paper.
 
 Before spinning up the notebooks on a GPU through the cluster, following the instructions in the top level [README](/README.md), make sure you source the `prompt_engineering` environment with the command
 

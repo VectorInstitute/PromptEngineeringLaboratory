@@ -1,8 +1,8 @@
 # Fine-tuning a classifier on the Activations from an LLM
 
-We are aiming to train a small classifier on top of the activations of an intermediate layer for the LLaMA-2 language model hosted on Vector's cluster. As an example we'll work on the IMDB sentiment classification task. It's a boolean task that asks the model to classify the sentiment associated with a short movie review. The dataset consists of 25,000 highly polar movie reviews for training, and another 25,000 for testing.
+We are aiming to train a small classifier on top of the activations of intermediate layers for the LLaMA-2 language model hosted on Vector's cluster. As an example we'll work on the IMDB sentiment classification task. It's a boolean task that asks the model to classify the sentiment associated with a short movie review. The dataset consists of 25,000 highly polar movie reviews for training, and another 25,000 for testing.
 
-__Note__ We have also computed activations using the 95th DNN layer of OPT-175B as another example. While we only experiment with a single layer from OPT, prompting has a dramatic affect on a classifiers downstream accuracy on this task as well.
+__NOTE__: We also have activations extracted from the final layer of the OPT-175B model. While this model is no currently hosted on the Vector, they still hold illustrative value and can be loaded in the `train_on_activations.ipynb` notebook.
 
 Sample Review (Please forgive language):
 
@@ -32,6 +32,7 @@ and finally
 ```
 pip install -r requirements.txt
 ```
+where `requirements.txt` is housed at the top level of the repository
 
 ## Pickle Files
 
@@ -47,10 +48,10 @@ The first step is to compute activations for a set of training inputs and the sa
 
 These activations are stored in the resources folder and we'll train/test a classifier using the activations vectors in another notebook. Because the model is so expressive, this few-shot set of training examples should still perform well on the test set. The notebook to compute these is `compute_activations.ipynb`.
 
-We also want to consider whether training with a prompt as part of the input helps the downstream model perform the task more accurately. So we'll save activations with and without a few-shot prompt as part of the input.
+We also want to consider whether training with a prompt as part of the input helps the downstream model perform the task more accurately. So we'll save activations with and without a few-shot prompt as part of the input. Finally, we consider which layer in the model houses the most information relevant to the completion of this task.
 
 Finally, we want to experiment with extractive activations from different layers of the model. So we compute activations at several different layers in the model.
 
 ## Classifier Training
 
-After pre-computing the activations with and without prompting, we train a simple DNN to perform sentiment classification on the two different training sets (with and without prompts). We compare performance to determine whether the prompting helped produce better downstream performance. The notebook to do the training is `train_on_activations.ipynb`
+After pre-computing the activations with and without prompting, we train a simple DNN to perform sentiment classification on different training sets, including those generated with and without prompts as part of the input. We compare performance to determine whether the prompting helped produce better downstream performance. The notebook to do the training is `train_on_activations.ipynb`. We also consider which layers of the model contain the most "relevant" information for the task.
