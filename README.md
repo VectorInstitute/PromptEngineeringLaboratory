@@ -32,7 +32,7 @@ Below is a brief description of the contents of each folder in the reference imp
 
 This repository is organized as follows
 
-## Prompting LLM On the Cluster through Kaleidoscope
+## Prompting LLMs on the Cluster through Kaleidoscope
 
 These reference implementations are housed in `src/reference_implementations/prompting_vector_llms/`
 
