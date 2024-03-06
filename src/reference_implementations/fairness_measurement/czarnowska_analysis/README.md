@@ -29,7 +29,10 @@ The code is then run with
 ```bash
 python -m src.reference_implementations.fairness_measurement.czarnowska_analysis.prompting_czarnowska_templates
 ```
+__NOTE__ This should be run on a GPU reserved through the interactive process described in the `README.md` at the top level of this repository.
 
-The script uses the kaleidoscope tool to prompt the large language models to perform sentiment inference on the Czarnoswka templates file. Producing sentiment predictions for each sentence. We use 5-shot prompts drawn from the SST5 dataset.
+The script uses the kaleidoscope tool to prompt the LLMs to perform sentiment inference on the Czarnowska templates file. Producing sentiment predictions for each sentence. We use 8-shot prompts drawn from the SST5 dataset.
 
-__NOTE__: Making predictions on the entire Czarnowska templates takes a __VERY__ long time. We have already run OPT-6.7B, OPT-175B, LLaMA-2-7B, LLaMA-2-70B on these templates and stored the predictions in `src/reference_implementations/fairness_measurement/resources/predictions/` to visualize using the notebook `src/reference_implementations/fairness_measurement/fairness_eval_template.py`. If you would like to generate your own, please strongly consider pairing the templates down to only the groups you would like to investigate.
+__NOTE__: Making predictions on the entire Czarnowska templates takes a long time. We have already run OPT-6.7B, OPT-175B, LLaMA-2-7B, LLaMA-2-70B on these templates and stored the predictions in `src/reference_implementations/fairness_measurement/resources/predictions/` to visualize using the notebook `src/reference_implementations/fairness_measurement/fairness_eval_template.py`. If you would like to generate your own, please strongly consider pairing the templates down to only the groups you would like to investigate.
+
+__NOTE__: The OPT predictions were done using a previously hosted model that is no longer available. There, we used 5-shot prompts and activation extraction to select the labels from generative distributions.

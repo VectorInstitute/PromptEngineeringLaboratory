@@ -1,6 +1,6 @@
 ## Prompting of LLMs on Vector's Cluster
 
-For an in-depth desription of each of these tasks see the notebooks or the upper readme at `src/reference_implementations/prompting_vector_llms/README.MD`
+For an in-depth description of each of these tasks see the notebooks or the upper readme at `src/reference_implementations/prompting_vector_llms/README.MD`
 
 ## VENV Installation
 
@@ -24,3 +24,4 @@ and finally
 ```
 pip install -r requirements.txt
 ```
+where `requirements.txt` is housed at the top level of the repository
