@@ -112,7 +112,6 @@ plotly==5.13.1
 pre-commit==3.2.1
 prometheus-client==0.19.0
 prompt-toolkit==3.0.38
-protobuf=4.25.2
 psutil==5.9.4
 ptyprocess==0.7.0
 pure-eval==0.2.2
