@@ -105,6 +105,14 @@ Once an interactive session has been started, we can run a jupyter notebook on t
 Below, we start the notebook on the example port `8888`: If the port `8888` is taken, try another random port between 1024 and 65000.
 Also note the URL output by the command to be used later. (ex. http://127.0.0.1:8888/?token=7ba0ba5c3e9f5668f92518e4c5e723fea8b69aca065b4d57)
 
+If there is a specific environment that you want to use as the notebook kernel (for us it is likely the `prompt_engineering` venv), you __MUST__ activate it __BEFORE__ starting the notebook. An example would be running
+
+```bash
+source source /ssd003/projects/aieng/public/prompt_engineering/bin/activate
+```
+
+Start the notebook on the allocated GPU with the following command:
+
 ```bash
 jupyter notebook --ip $(hostname --fqdn) --port 8888
 ```

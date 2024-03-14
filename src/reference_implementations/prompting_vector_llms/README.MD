@@ -38,7 +38,20 @@ There is also a notebook considering loading and prompting an instruction fine-t
 
 `src/reference_implementations/prompting_vector_llms/llm_prompting_examples/llm_prompt_ift_koala_local.ipynb`
 
-The notebook doesn't implement a specific task, but is freely adaptable for experimentation. __Note__: Initializing this model can take some time and it is recommended that at least 32GB of CPU memory is reserved for the task.
+The notebook doesn't implement a specific task, but is freely adaptable for experimentation.
+
+__Note__: Initializing this model can take some time and it is recommended that at least 48GB of CPU memory is reserved for the task.
+
+__Note__: In addition, you should make sure that the notebook you are using is backed by an __A40__ GPU so it fits in GPU memory.
+
+An example of requesting the right configuration (after logging into the cluster) would be
+
+```bash
+srun --gres=gpu:1 --mem=64G --partition=a40 --pty bash
+```
+where this command requests a single a40 GPU with 64 GB of CPU memory.
+
+You can spin up the notebook on top of a specific configuration by following the instructions in the top level [README.MD](../../../README.md) in the section title "Starting a Notebook from a GPU Node."
 
 ### Summarization
 
