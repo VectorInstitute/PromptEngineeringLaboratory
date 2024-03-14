@@ -34,7 +34,13 @@ To start off, let's just list off all of the options available for configuration
 
 * `stop`: This can be a single string or a list of strings. These are values that tell the model when to stop decoding. For example, it could simply be a "." to tell the model it is done generating after producing a period.
 
-    __NOTE__ Neither Falcon nor LLaMA-2 support stop tokens at this time.
+__NOTE__: Each model will take a different set of parameters, and some of them will require additional ones. For example, regardless of how you set the parameters for Falcon, you need to set `do_sample: True` in order for it to do anything other than greedy decoding.
+
+The configuration details for LLaMA-2 are found [here](https://github.com/VectorInstitute/kaleidoscope/blob/main/model_service/models/llama2/config.json).
+
+The configuration details for Falcon are found [here](https://github.com/VectorInstitute/kaleidoscope/blob/main/model_service/models/falcon/config.json).
+
+__NOTE__ Neither Falcon nor LLaMA-2 support stop tokens at this time.
 
 ### Existing Resources For Additional Details
 
