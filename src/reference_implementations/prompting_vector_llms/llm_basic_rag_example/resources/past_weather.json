@@ -1,0 +1,57 @@
+{
+    "March 1, 2024":
+    [
+        {
+            "location": "Calgary",
+            "weather": "Sun and clouds with a high temperature of 5"
+        },
+        {
+            "location": "Toronto",
+            "weather": "Windy and Cloudy with a high temperature of 8"
+        }
+    ],
+    "March 2, 2024":
+    [
+        {
+            "location": "Calgary",
+            "weather": "Cloudy with a high temperature of 4"
+        },
+        {
+            "location": "Toronto",
+            "weather": "Overcast with a light drizzle with a high temperature of 6"
+        }
+    ],
+    "March 3, 2024":
+    [
+        {
+            "location": "Calgary",
+            "weather": "Overcast and windy with a high temperature of 1"
+        },
+        {
+            "location": "Toronto",
+            "weather": "Sun all day with a high temperature of 9"
+        }
+    ],
+    "March 4, 2024":
+    [
+        {
+            "location": "Calgary",
+            "weather": "Rain in the morning with afternoon sun with a high temperature of 6"
+        },
+        {
+            "location": "Toronto",
+            "weather": "Rain with some snow flurries with a high temperature of 3"
+        }
+    ],
+    "March 5, 2024":
+    [
+        {
+            "location": "Calgary",
+            "weather": "Sunny and warm with a high temperature of 10"
+        },
+        {
+            "location": "Toronto",
+            "weather": "Sun and clouds with a high temperature of 12"
+        }
+    ]
+}
