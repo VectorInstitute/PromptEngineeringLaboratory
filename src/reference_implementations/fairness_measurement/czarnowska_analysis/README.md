@@ -2,34 +2,22 @@
 
 The code in this folder is used to produce predictions on the Czarnowska templates housed in `src/reference_implementations/fairness_measurement/resources/czarnowska_templates/`. These templates are described in detail in the readme in the directory above this folder and in the paper [here](https://aclanthology.org/2021.tacl-1.74/).
 
-## Environment Setup
+## Running the script
 
-Before spinning up the notebooks on a GPU through the cluster, following the instructions in the top level [README](/README.md), make sure you source the `prompt_engineering` environment with the command
+To run this script you'll need to request a GPU to run the script on. This is done by simply running the command
+
+`srun --gres=gpu:1 -c 4 --mem 16G -p t4v2 --pty bash`
+
+After being allocated a GPU, you'll need to __source the right environment__ before running the script. That is, before running the script `prompting_czarnowska_templates.py` make sure you run
 
 ```bash
 source /ssd003/projects/aieng/public/prompt_engineering/bin/activate
-```
-
-If you're running the notebooks launched through the Jupyter Hub, simply select `prompt_engineering` from the available kernels and you should be good to go.
-
-If you want to create your own environment then you can do so by creating your own virtual environment with the command
-```bash
-python -m venv <name_of_venv>
-```
-then
-```bash
-source <name_of_venv>/bin/activate
-```
-finally run
-```bash
-pip install transformers torch kscope pandas
 ```
 
 The code is then run with
 ```bash
 python -m src.reference_implementations.fairness_measurement.czarnowska_analysis.prompting_czarnowska_templates
 ```
-__NOTE__ This should be run on a GPU reserved through the interactive process described in the `README.md` at the top level of this repository.
 
 The script uses the kaleidoscope tool to prompt the LLMs to perform sentiment inference on the Czarnowska templates file. Producing sentiment predictions for each sentence. We use 8-shot prompts drawn from the SST5 dataset.
 
