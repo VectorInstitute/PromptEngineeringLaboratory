@@ -1,6 +1,6 @@
 # Measuring Fairness in Language Models
 
-## Fairness Through Fine-Tuning
+## Fairness Through Fine-Tuning/Prompting
 
 In the folder `czarnowska_analysis/`, we measure the fairness of some models through the lens of sentiment analysis. Specifically, we will measure if swapping out the name of the groups (e.g., young vs old) will affect the model's prediction of the sentence's sentiment. We will use additional metrics and visualization techniques devised at the Vector Institute to highlight groups of people that the models are in favor of or biased against.
 

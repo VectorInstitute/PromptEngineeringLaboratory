@@ -6,7 +6,9 @@ The code in this folder is used to produce predictions on the Czarnowska templat
 
 To run this script you'll need to request a GPU to run the script on. This is done by simply running the command
 
-`srun --gres=gpu:1 -c 4 --mem 16G -p t4v2 --pty bash`
+```bash
+srun --gres=gpu:1 -c 4 --mem 16G -p t4v2 --pty bash
+```
 
 After being allocated a GPU, you'll need to __source the right environment__ before running the script. That is, before running the script `prompting_czarnowska_templates.py` make sure you run
 
