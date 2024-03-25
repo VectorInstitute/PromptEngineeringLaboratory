@@ -6,6 +6,21 @@ The static code checker and all implementations run on python3.9
 
 All reference implementations are housed in `src/reference_implementations/`. Datasets to be used are placed in the relevant resources subfolder for the implementation.
 
+## Models Available
+
+There will be three copies of each model hosted on Vector's cluster for the duration of the lab. Each copy will be accessible through Ports 3001, 4001, and 5001 using the Kaleidoscope library. If a model is generating very slow, you can try using one of the models on the other ports to see if there is less traffic. This is done by changing the gateway port number in the notebooks within the command
+
+```python
+client = kscope.Client(gateway_host="llm.cluster.local", gateway_port=3001)
+```
+
+The models available are
+* Falcon 7B
+* Falcon 40B
+* LLaMA-2 7B
+* LLaMA-2 13B
+* LLaMA-2 70B
+
 ## A Few Tips for Getting Started
 
 1. As part of your cluster account, you have been allocated a scratch folder where checkpoints, training artifacts, and other files may be stored. It should be located at the path:

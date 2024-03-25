@@ -31,7 +31,7 @@ OutputEntry = Tuple[
 ]
 
 PATH_STUB = "src/reference_implementations/fairness_measurement/resources"
-TEST_FILE_PATH = f"{PATH_STUB}/czarnowska_templates/sentiment_fairness_tests_cut.tsv"
+TEST_FILE_PATH = f"{PATH_STUB}/czarnowska_templates/sentiment_fairness_tests.tsv"
 # Append results to this file.
 PREDICTION_FILE_PATH = f"{PATH_STUB}/predictions/llama_2_7b_predictions_r2.tsv"
 
