@@ -14,7 +14,7 @@ There will be three copies of each model hosted on Vector's cluster for the dura
 client = kscope.Client(gateway_host="llm.cluster.local", gateway_port=3001)
 ```
 
-The models available are 
+The models available are
 * Falcon 7B
 * Falcon 40B
 * LLaMA-2 7B
