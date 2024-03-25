@@ -5,7 +5,13 @@ This folder contains a number of notebooks and reference implementations aimed a
 1) [Falcon](https://falconllm.tii.ae/index.html) (7B and 40B parameters): Falcon is a recent LLM from the Technology Innovation Institute (TII). At the time of its release, it was a state-of-the-art LLM, beating the original LLaMA model on various tasks. It is open source and has a permissive commercial license. The largest model in the family is 180B. However, the 40B parameter model is capable of handling fairly complex tasks, such as incorporating chain-of-thought reasoning.
 2) [LLaMA-2](https://arxiv.org/abs/2307.09288) (7B, 13B, 70B): LLaMA-2 is the most recent open-source LLM released by Meta. It is one of the highest performing open-source models. It has a limited commercial-use license. However, it is fully open for academic use. The version of the model used for the lab is __NOT__ the chat version. While the chat model may be better at following instructions due to IFT, this also introduces additional behavior modifications that we'd like to circumvent.
 
-__At least two copies of each model will be hosted on the Vector cluster. Each copy will be accessible through ports 3001 or 4001 using the Kaleidoscope library. A third port will potentially be open at 5001 at the time of the lab.__
+## Models Available
+
+There will be three copies of each model hosted on Vector's cluster for the duration of the lab. Each copy will be accessible through Ports 3001, 4001, and 5001 using the Kaleidoscope library. If a model is generating very slow, you can try using one of the models on the other ports to see if there is less traffic. This is done by changing the gateway port number in the notebooks within the command
+
+```python
+client = kscope.Client(gateway_host="llm.cluster.local", gateway_port=3001)
+```
 
 __NOTE__: Due to their size, and depending on the size of the sequence input, the largest models may take some time to respond. In addition, the model can be sensitive to Out-of-memory errors if a large batch of inputs and activations are requested. As such, the models are currently configured to only accept requests with batch sizes of 10 samples or less. Make sure to batch your requests to be under this size.
 
