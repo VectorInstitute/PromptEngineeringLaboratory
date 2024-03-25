@@ -54,12 +54,22 @@ NUM_PARAMS = 0.125  # billions
 RUN_ID = "example_run_a"  # E.g., distinguishes between different random seeds.
 ```
 
-On a GPU machine, go to the root folder of this project (`PromptEngineeringLaboratory`). Create a virtual environment and run the fairness evaluation script:
-```bash
-python3 -m venv env
-source env/bin/activate
+## Running the script
 
-python3 -m pip install -U transformers tqdm
+To run this script you'll need to request a GPU to run the script on. This is done by simply running the command
+
+```bash
+srun --gres=gpu:1 -c 4 --mem 16G -p t4v2 --pty bash
+```
+
+After being allocated a GPU, you'll need to __source the right environment__ before running the script. That is, before running the script `prompting_czarnowska_templates.py` make sure you run
+
+```bash
+source /ssd003/projects/aieng/public/prompt_engineering/bin/activate
+```
+
+The code is then run with
+```bash
 python3 src/reference_implementations/fairness_measurement/roberta_fairness_eval_template.py
 ```
 
