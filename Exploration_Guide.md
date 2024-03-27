@@ -47,7 +47,7 @@ As such, some new areas of this repository that could be of interest are:
 
     `src/reference_implementations/fairness_measurement/`
 
-    Notebooks for the BBQ and Crow-S pairs tasks are well document while the README in the `opt_czarnowska_analysis/` folder provides details about the code therein.
+    Notebooks for the BBQ, StereoSet, and Crow-S pairs tasks are well document while the README in the `opt_czarnowska_analysis/` folder provides details about the code therein.
 
 3. Due to their complexity and computational intensity, implementations or discrete and continuous prompt optimization have been omitted from this iteration of the lab. However, a notebook considering the transferrability of prompts optimized with AutoPrompt is in `transferring_gradient_optimized_prompts/`. These prompts are difficult to interpret by a human but surprisingly produce significant task-specific improvements for the T5 model.
 
