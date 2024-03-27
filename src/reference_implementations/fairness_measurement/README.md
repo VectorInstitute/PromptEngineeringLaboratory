@@ -109,6 +109,18 @@ finally run
 pip install torch kscope
 ```
 
+## StereoSet Notebook for Bias Probing
+
+In the folder `stereoset/` there is notebook that facilitates running LLaMA-2 on some examples drawn from the StereoSet dataset that aims at quantifying bias present in LLMs through estimation of the likelihoods of various context-completion pairs or fill-in the blank tasks. The details and links to the paper are described in depth in the notebook itself.
+
+Before spinning up the notebooks on a GPU through the cluster, following the instructions in the top level [README](/README.md), make sure you source the `prompt_engineering` environment with the command
+
+```bash
+source /ssd003/projects/aieng/public/prompt_engineering/bin/activate
+```
+
+If you're running the notebooks launched through the Jupyter Hub, simply select `prompt_engineering` from the available kernels and you should be good to go.
+
 ## Crow-S-Pairs Notebook for Bias Quantification
 
 In the folder `crow_s_pairs/` there is notebook that facilitates running the Crow-S-Pairs task that aims at quantifying bias present in LLMs through estimation of the likelihoods of various pairs of sentences. The details and links to the paper are described in depth in the notebook itself.
