@@ -8,6 +8,7 @@ In the lectures preceding Hands-On Day 1, we will have covered a number of topic
 
 * Language Modeling and Evaluation Methods.
 * Pre-training, fine-tuning, zero-shot and few-shot methods.
+* Generation configuration and manipulation.
 * Prompt Design, manual optimization, and ensembling.
 * Challenges and capabilities associated with truly large language models.
 
@@ -59,5 +60,6 @@ In the lectures preceding Hands-On Day 3, we will have covered several new topic
 * Retrieval Augmented Generation (RAG) and advanced RAG techniques.
 
 1. There are several implementations of CoT prompting techniques in the `prompting_vector_llms/llm_reasoning_prompting` folder. Exploring these notebooks should give an overview to some of the popular reasoning based prompting methods and why they work in practice.
+2. There is a basic example of RAG in the folder `prompting_vector_llms/llm_basic_rag_example`. The example presumes an effective retrieval strategy, which is not guaranteed, but demonstrates why RAG is an effective strategy for open-ended question-answering.
 
 On this third day, we encourage participants to continue exploring implementations and examples that interest them most, based on their previous days of investigation, within the repository.
