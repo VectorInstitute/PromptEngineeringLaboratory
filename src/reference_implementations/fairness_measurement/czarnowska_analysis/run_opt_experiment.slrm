@@ -8,14 +8,16 @@
 #SBATCH --mem=64G
 #SBATCH --partition=a40
 #SBATCH --qos=m
-#SBATCH --job-name=llama2_czarn_prompts
+#SBATCH --job-name=opt_czarn_prompts
 #SBATCH --output=%j_%x.out
 #SBATCH --error=%j_%x.err
 
 ###############################################
 # Usage:
 #
-# sbatch src/reference_implementations/fairness_measurement/czarnowska_analysis/run_llama2_experiments.slrm
+# sbatch src/reference_implementations/fairness_measurement/czarnowska_analysis/run_opt_experiment.slrm \
+#   run_name \
+#   dataset \
 ###############################################
 
 # Note:
@@ -34,10 +36,10 @@ if [[ "${SLURM_JOB_PARTITION}" == "t4v2" ]] || \
     export NCCL_SOCKET_IFNAME=bond0
 fi
 
-RUN_NAMES=( "run_1" "run_2" "run_3" "run_4" "run_5" )
-VENV_PATH=/ssd003/projects/aieng/public/prompt_engineering/
-DATASET="SST5" # Should be one of SST5, SemEval, ZeroShot
+RUN_NAME=$1
+DATASET=$2
 
+VENV_PATH=/ssd003/projects/aieng/public/prompt_engineering/
 echo "Python Venv Path: ${VENV_PATH}"
 
 echo "World size: ${SLURM_NTASKS}"
@@ -50,21 +52,13 @@ source ${VENV_PATH}bin/activate
 echo "Active Environment:"
 which python
 
-for RUN_NAME in "${RUN_NAMES[@]}";
-do
-    echo "Starting ${RUN_NAME} for DATASET ${DATASET}"
+echo "Starting ${RUN_NAME} for DATASET ${DATASET}"
 
-    OUTPUT_FILE="Llama2_${RUN_NAME}_${DATASET}.out"
+nohup python -m src.reference_implementations.fairness_measurement.czarnowska_analysis.prompting_czarnowska_opt6_7b \
+    --run_id ${RUN_NAME} \
+    --dataset ${DATASET} \
+    > ${OUTPUT_FILE} 2>&1 &
 
-    echo "Run logging at: ${SERVER_OUTPUT_FILE}"
-
-    nohup python -m src.reference_implementations.fairness_measurement.czarnowska_analysis.prompting_czarnowska_llama2_7b \
-        --run_id ${RUN_NAME} \
-        --dataset ${DATASET} \
-        > ${OUTPUT_FILE} 2>&1 &
-
-    echo "Process Running"
-
-    wait
-    echo "Finished Process"
-done
+echo "Process Running"
+wait
+echo "Finished Process"
