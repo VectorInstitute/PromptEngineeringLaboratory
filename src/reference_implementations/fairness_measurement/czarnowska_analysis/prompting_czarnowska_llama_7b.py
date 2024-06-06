@@ -28,7 +28,7 @@ PATH_STUB = "src/reference_implementations/fairness_measurement/resources"
 TEST_FILE_PATH = f"{PATH_STUB}/czarnowska_templates/sentiment_fairness_tests.tsv"
 MODEL = "LLaMA-7B"
 NUM_PARAMS: float = 7.0  # billions
-BATCH_SIZE = 4
+BATCH_SIZE = 16
 N_SHOTS = 9
 
 SEEDS = {
@@ -117,10 +117,8 @@ def get_predictions_batched(input_texts: List[str], demonstrations: str, dataset
     batched_sequences = generator(prompts, do_sample=True, max_new_tokens=2, temperature=0.8, return_full_text=False)
     for prompt_sequence in batched_sequences:
         generated_text = prompt_sequence[0]["generated_text"]
-        print(generated_text)
         predicted_label = extract_predicted_label(generated_text)
         predicted_labels.append(predicted_label)
-        print(predicted_label)
     assert len(predicted_labels) == len(input_texts)
     return predicted_labels
 
