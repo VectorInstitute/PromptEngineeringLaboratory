@@ -97,7 +97,7 @@ def create_prompt_for_text(text: str, demonstrations: str, dataset: str) -> str:
 def create_prompts_for_batch(input_texts: List[str], demonstrations: str, dataset: str) -> List[str]:
     prompts = []
     for input_text in input_texts:
-        prompts.append(create_prompt_for_text(input_text, demonstrations), dataset)
+        prompts.append(create_prompt_for_text(input_text, demonstrations, dataset))
     return prompts
 
 
