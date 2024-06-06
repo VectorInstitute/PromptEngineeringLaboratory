@@ -53,6 +53,8 @@ echo "Active Environment:"
 which python
 
 echo "Starting ${RUN_NAME} for DATASET ${DATASET}"
+OUTPUT_FILE="${RUN_NAME}_${DATASET}_llama.out"
+echo "Server logging at: ${OUTPUT_FILE}"
 
 nohup python -m src.reference_implementations.fairness_measurement.czarnowska_analysis.prompting_czarnowska_llama_7b \
     --run_id ${RUN_NAME} \
