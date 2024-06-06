@@ -39,7 +39,7 @@ SEEDS = {
     "run_5": 2028,
 }
 
-MODEL_PATH = "/model-weights/Llama-2-7b"
+MODEL_PATH = "/model-weights/Llama-2-7b-hf"
 generator = pipeline("text-generation", model=MODEL_PATH, device="cuda")
 
 # Czarnowska Labels
