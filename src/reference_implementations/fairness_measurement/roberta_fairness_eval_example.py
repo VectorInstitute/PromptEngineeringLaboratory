@@ -71,15 +71,7 @@ Dataset = str
 NumParams = float
 TestEntry = Tuple[TrueLabel, Category, Group, TestText]
 OutputEntry = Tuple[
-    PredictedLabel,
-    TrueLabel,
-    Category,
-    Group,
-    TestText,
-    Model,
-    RunID,
-    Dataset,
-    NumParams,
+    PredictedLabel, TrueLabel, Category, Group, TestText, Model, RunID, Dataset, NumParams,
 ]
 
 tests: List[TestEntry] = []
@@ -109,17 +101,7 @@ for batch in tqdm(test_batches):
 # If the prediction file doesn't exist, we create a new one and append the tsv header row.
 if not os.path.exists(PREDICTION_FILE_PATH):
     header_row = "\t".join(
-        [
-            "y_true",
-            "y_pred",
-            "category",
-            "group",
-            "text",
-            "model",
-            "run_id",
-            "dataset",
-            "num_params",
-        ]
+        ["y_true", "y_pred", "category", "group", "text", "model", "run_id", "dataset", "num_params",]
     )
     header_row = header_row + "\n"
     with open(PREDICTION_FILE_PATH, "w") as prediction_file:
