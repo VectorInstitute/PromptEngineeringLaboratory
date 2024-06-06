@@ -58,7 +58,7 @@ do
 
     echo "Run logging at: ${SERVER_OUTPUT_FILE}"
 
-    nohup python -m src.reference_implementations.fairness_measurement.czarnowska_analysis/prompting_czarnowska_llama2_7b \
+    nohup python -m src.reference_implementations.fairness_measurement.czarnowska_analysis.prompting_czarnowska_llama2_7b \
         --run_id ${RUN_NAME} \
         --dataset ${DATASET} \
         > ${OUTPUT_FILE} 2>&1 &
