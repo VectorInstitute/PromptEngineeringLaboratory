@@ -8,9 +8,11 @@
 #SBATCH --mem=64G
 #SBATCH --partition=a40
 #SBATCH --qos=m
+#SBATCH --time=7:00:00
 #SBATCH --job-name=opt_czarn_prompts
 #SBATCH --output=%j_%x.out
 #SBATCH --error=%j_%x.err
+#SBATCH --signal=B:USR1@60
 
 ###############################################
 # Usage:
@@ -54,13 +56,31 @@ which python
 
 echo "Starting ${RUN_NAME} for DATASET ${DATASET}"
 OUTPUT_FILE="${RUN_NAME}_${DATASET}_opt.out"
-echo "Server logging at: ${OUTPUT_FILE}"
+echo "Logging at: ${OUTPUT_FILE}"
 
-nohup python -m src.reference_implementations.fairness_measurement.czarnowska_analysis.prompting_czarnowska_opt6_7b \
-    --run_id ${RUN_NAME} \
-    --dataset ${DATASET} \
-    > ${OUTPUT_FILE} 2>&1 &
+handler()
+{
+	echo "Requeue $SLURM_JOB_ID at $(date)"
+	scontrol requeue $SLURM_JOB_ID
+}
 
-echo "Process Running"
+prompt()
+{
+    nohup python -m src.reference_implementations.fairness_measurement.czarnowska_analysis.prompting_czarnowska_opt6_7b \
+        --run_id ${RUN_NAME} \
+        --dataset ${DATASET} \
+        > ${OUTPUT_FILE} 2>&1 &
+
+    echo "Process Running"
+    wait
+}
+
+# Trap is used to handle signals or errors that occur during execution
+# Here we pass the handler function to initiate a requeue when we get a
+# signal that the job will be killed due to time limit 60 seconds prior
+trap handler SIGUSR1
+
+prompt &
+
 wait
 echo "Finished Process"
