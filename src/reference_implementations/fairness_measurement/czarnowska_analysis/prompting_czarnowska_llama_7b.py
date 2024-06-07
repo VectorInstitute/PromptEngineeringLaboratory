@@ -114,7 +114,7 @@ def extract_predicted_label(sequence: str) -> str:
 def get_predictions_batched(input_texts: List[str], demonstrations: str, dataset: str) -> List[str]:
     predicted_labels = []
     prompts = create_prompts_for_batch(input_texts, demonstrations, dataset)
-    batched_sequences = generator(prompts, do_sample=True, max_new_tokens=2, temperature=0.8, return_full_text=False)
+    batched_sequences = generator(prompts, do_sample=True, max_new_tokens=3, temperature=0.8, return_full_text=False)
     for prompt_sequence in batched_sequences:
         generated_text = prompt_sequence[0]["generated_text"]
         predicted_label = extract_predicted_label(generated_text)
@@ -152,8 +152,24 @@ if __name__ == "__main__":
     torch.manual_seed(SEED)
 
     tests: List[TestEntry] = []
+    
+    if not os.path.exists(PREDICTION_FILE_PATH):
+        # If the prediction file doesn't exist, we create a new one and append the tsv header row.
+        header_row = "\t".join(
+            ["y_true", "y_pred", "category", "group", "text", "model", "run_id", "dataset", "num_params",]
+        )
+        header_row = header_row + "\n"
+        with open(PREDICTION_FILE_PATH, "w") as prediction_file:
+            prediction_file.write(header_row)
+
+    # Figure out how many predictions we've made so far
+    with open(PREDICTION_FILE_PATH, "r") as prediction_file:
+        num_predictions_so_far = len(prediction_file.readlines()) - 1
+
+    # Open the templates and only start reading from where we left off
     with open(TEST_FILE_PATH, "r") as template_file:
-        for line in template_file.readlines():
+        template_files_lines = template_file.readlines()
+        for line in template_files_lines[num_predictions_so_far:]:
             label_str, attribute, group, text = tuple(line.rstrip().split("\t"))
             # convert the label string to an int
             label = int(label_str)
@@ -164,16 +180,6 @@ if __name__ == "__main__":
     example_prompt = create_prompt_for_text("I did not like that movie at all.", demonstrations, dataset)
     print(f"Example Prompt\n{example_prompt}")
 
-    # If the prediction file doesn't exist, we create a new one and append the tsv header row.
-    if not os.path.exists(PREDICTION_FILE_PATH):
-        header_row = "\t".join(
-            ["y_true", "y_pred", "category", "group", "text", "model", "run_id", "dataset", "num_params",]
-        )
-        header_row = header_row + "\n"
-        with open(PREDICTION_FILE_PATH, "w") as prediction_file:
-            prediction_file.write(header_row)
-
-    text_batch: List[str] = []
     # Append to the output file instead of overwriting.
     with open(PREDICTION_FILE_PATH, "a") as prediction_file:
         for batch in tqdm(test_batches):
