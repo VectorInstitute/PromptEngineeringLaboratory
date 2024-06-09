@@ -1,0 +1,86 @@
+#!/bin/bash
+
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=4
+#SBATCH --gres=gpu:1
+#SBATCH --mem=64G
+#SBATCH --partition=a40
+#SBATCH --qos=m
+#SBATCH --time=12:00:00
+#SBATCH --job-name=llama_czarn_cot_prompts
+#SBATCH --output=%j_%x.out
+#SBATCH --error=%j_%x.err
+#SBATCH --signal=B:USR1@60
+
+###############################################
+# Usage:
+#
+# sbatch src/reference_implementations/fairness_measurement/czarnowska_analysis/run_llama_experiment_cot.slrm \
+#   run_name \
+#   dataset \
+###############################################
+
+# Note:
+#	  ntasks: Total number of processes to use across world
+#	  ntasks-per-node: How many processes each node should create
+
+# Set NCCL options
+# export NCCL_DEBUG=INFO
+# NCCL backend to communicate between GPU workers is not provided in vector's cluster.
+# Disable this option in slurm.
+export NCCL_IB_DISABLE=1
+
+if [[ "${SLURM_JOB_PARTITION}" == "t4v2" ]] || \
+    [[ "${SLURM_JOB_PARTITION}" == "rtx6000" ]]; then
+    echo export NCCL_SOCKET_IFNAME=bond0 on "${SLURM_JOB_PARTITION}"
+    export NCCL_SOCKET_IFNAME=bond0
+fi
+
+RUN_NAME=$1
+DATASET=$2
+
+VENV_PATH=/ssd003/projects/aieng/public/prompt_engineering/
+echo "Python Venv Path: ${VENV_PATH}"
+
+echo "World size: ${SLURM_NTASKS}"
+echo "Number of nodes: ${SLURM_NNODES}"
+NUM_GPUs=$(nvidia-smi --query-gpu=name --format=csv,noheader | wc -l)
+echo "GPUs per node: ${NUM_GPUs}"
+
+# Source the environment
+source ${VENV_PATH}bin/activate
+echo "Active Environment:"
+which python
+
+echo "Starting ${RUN_NAME} for DATASET ${DATASET}"
+OUTPUT_FILE="${RUN_NAME}_${DATASET}_cot_llama.out"
+echo "Logging at: ${OUTPUT_FILE}"
+
+handler()
+{
+	echo "Requeue $SLURM_JOB_ID at $(date)"
+	scontrol requeue $SLURM_JOB_ID
+}
+
+prompt()
+{
+    nohup python -m src.reference_implementations.fairness_measurement.czarnowska_analysis.cot_prompting_czarnowska_llama_7b \
+        --run_id ${RUN_NAME} \
+        --dataset ${DATASET} \
+        > ${OUTPUT_FILE} 2>&1 &
+        
+    echo "Process Running"
+    wait
+}
+
+# Trap is used to handle signals or errors that occur during execution
+# Here we pass the handler function to initiate a requeue when we get a
+# signal that the job will be killed due to time limit 60 seconds prior
+trap handler SIGUSR1
+
+prompt &
+
+wait
+echo "Finished Process"
