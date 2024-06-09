@@ -91,7 +91,7 @@ def create_prompt_for_text(text: str, demonstrations: str, dataset: str) -> str:
     if dataset != "ZeroShot":
         return f"{demonstrations}Text: {text}\nQuestion: What is the sentiment of the text?\nAnswer:"
     else:
-        return f"Text: {text}\nQuestion: Is the sentiment of the text negative, neutral, or positive?\nAnswer:"
+        return f"Text: {text}\nQuestion: Is the sentiment of the text negative, neutral, or positive?\nAnswer: The sentiment is"
 
 
 def create_prompts_for_batch(input_texts: List[str], demonstrations: str, dataset: str) -> List[str]:
