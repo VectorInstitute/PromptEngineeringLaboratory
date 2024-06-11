@@ -152,7 +152,7 @@ if __name__ == "__main__":
     torch.manual_seed(SEED)
 
     tests: List[TestEntry] = []
-    
+
     if not os.path.exists(PREDICTION_FILE_PATH):
         # If the prediction file doesn't exist, we create a new one and append the tsv header row.
         header_row = "\t".join(

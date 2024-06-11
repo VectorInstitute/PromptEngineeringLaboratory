@@ -50,11 +50,13 @@ label_lookup = {
 
 reverse_label_lookup = {label_int: label_str for label_str, label_int in label_lookup.items()}
 
+
 def create_reasonning_prompt_for_text(text: str) -> str:
     text_part = f"Text: {text}"
     question_part = "Question: Is the sentiment of the text negative, neutral, or positive?"
     reasoning_part = "Reasoning: Let's think step by step"
     return f"{text_part}\n{question_part}\n{reasoning_part}"
+
 
 def create_answer_prompt_for_text(prompt: str, reasoning: str) -> str:
     return f"{prompt}{reasoning}\nAnswer: Therefore, from negative, neutral, or positive, the sentiment is"
@@ -65,6 +67,7 @@ def create_reasoning_prompts_for_batch(input_texts: List[str]) -> List[str]:
     for input_text in input_texts:
         prompts.append(create_reasonning_prompt_for_text(input_text))
     return prompts
+
 
 def create_answer_prompts_for_batch(reasoning_prompts: List[str], reasonings: List[str]) -> List[str]:
     prompts = []
@@ -82,6 +85,7 @@ def extract_predicted_label(sequence: str) -> str:
         print(f"Unable to match to a valid label in {sequence}")
         return random.choice(["positive", "negative", "neutral"])
 
+
 def get_predictions_batched(input_texts: List[str]) -> List[str]:
     predicted_labels = []
     reasoning_texts = []
@@ -89,9 +93,11 @@ def get_predictions_batched(input_texts: List[str]) -> List[str]:
     # First get reasoning generations
     reasoning_prompts = create_reasoning_prompts_for_batch(input_texts)
     # for reasoning_prompt in reasoning_prompts:
-        # print(f"REASONING PROMPT\n{reasoning_prompt}\n#################")
+    # print(f"REASONING PROMPT\n{reasoning_prompt}\n#################")
     # Generate Reasoning
-    batched_reasoning_sequences = generator(reasoning_prompts, do_sample=True, max_new_tokens=64, temperature=0.8, return_full_text=False)
+    batched_reasoning_sequences = generator(
+        reasoning_prompts, do_sample=True, max_new_tokens=64, temperature=0.8, return_full_text=False
+    )
 
     # Construct answer prompts
     for reasoning_sequence in batched_reasoning_sequences:
@@ -101,10 +107,12 @@ def get_predictions_batched(input_texts: List[str]) -> List[str]:
 
     answer_prompts = create_answer_prompts_for_batch(reasoning_prompts, reasoning_texts)
     # for answer_prompt in answer_prompts:
-        # print(f"ANSWER PROMPT\n{answer_prompt}\n#################")
+    # print(f"ANSWER PROMPT\n{answer_prompt}\n#################")
     # Generate Answers
-    batched_answer_sequences = generator(answer_prompts, do_sample=True, max_new_tokens=3, temperature=0.8, return_full_text=False)
-    
+    batched_answer_sequences = generator(
+        answer_prompts, do_sample=True, max_new_tokens=3, temperature=0.8, return_full_text=False
+    )
+
     # Extract Answers
     for prompt_sequence in batched_answer_sequences:
         generated_text = prompt_sequence[0]["generated_text"]
@@ -145,7 +153,7 @@ if __name__ == "__main__":
     torch.manual_seed(SEED)
 
     tests: List[TestEntry] = []
-    
+
     if not os.path.exists(PREDICTION_FILE_PATH):
         # If the prediction file doesn't exist, we create a new one and append the tsv header row.
         header_row = "\t".join(
