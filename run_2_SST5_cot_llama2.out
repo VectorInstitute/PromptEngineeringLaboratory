@@ -1,0 +1,13 @@
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:19<00:19, 19.74s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:26<00:00, 12.31s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:26<00:00, 13.43s/it]
+Example Reasoning Prompt
+Text: I did not like that movie at all.
+Question: Is the sentiment of the text negative, neutral, or positive?
+Reasoning: Let's think step by step
+Example Answer Prompt
+Text: I did not like that movie at all.
+Question: Is the sentiment of the text negative, neutral, or positive?
+Reasoning: Let's think step by step SOME REASONING GENERATION
+Answer: Therefore, from negative, neutral, or positive, the sentiment is
+  0%|          | 0/21 [00:00<?, ?it/s]  5%|▍         | 1/21 [00:17<05:48, 17.44s/it] 10%|▉         | 2/21 [00:33<05:13, 16.51s/it] 14%|█▍        | 3/21 [00:49<04:51, 16.19s/it] 19%|█▉        | 4/21 [01:04<04:32, 16.05s/it] 24%|██▍       | 5/21 [01:20<04:15, 15.97s/it]/ssd003/projects/aieng/public/prompt_engineering/lib/python3.9/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+ 29%|██▊       | 6/21 [01:36<03:58, 15.93s/it] 33%|███▎      | 7/21 [01:52<03:42, 15.90s/it] 38%|███▊      | 8/21 [02:08<03:26, 15.87s/it] 43%|████▎     | 9/21 [02:24<03:12, 16.08s/it] 48%|████▊     | 10/21 [02:40<02:56, 16.01s/it] 52%|█████▏    | 11/21 [02:56<02:39, 15.98s/it] 57%|█████▋    | 12/21 [03:12<02:23, 15.95s/it] 62%|██████▏   | 13/21 [03:28<02:07, 15.93s/it] 67%|██████▋   | 14/21 [03:44<01:51, 15.90s/it] 71%|███████▏  | 15/21 [04:00<01:35, 15.89s/it] 76%|███████▌  | 16/21 [04:15<01:19, 15.88s/it] 81%|████████  | 17/21 [04:31<01:03, 15.88s/it] 86%|████████▌ | 18/21 [04:47<00:47, 15.88s/it] 90%|█████████ | 19/21 [05:03<00:31, 15.88s/it] 95%|█████████▌| 20/21 [05:20<00:16, 16.11s/it]100%|██████████| 21/21 [05:36<00:00, 16.05s/it]100%|██████████| 21/21 [05:36<00:00, 16.00s/it]
